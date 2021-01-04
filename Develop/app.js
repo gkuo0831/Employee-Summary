@@ -28,7 +28,52 @@ const team = () =>
       choices: ["Manager", "Engineer", "Intern"],
       name: "role",
     },
+    {
+      type: "input",
+      message: "What is your email?",
+      name: "email",
+    },
   ]);
+
+function main() {
+  question().then(async (response) => {
+    switch (response.role) {
+      case "Manager":
+        const employeeMgr = await createManager(
+          response.name,
+          response.role,
+          response.email
+        );
+        employees.push(employeeMgr);
+
+        addAnotherEmployee();
+        break;
+
+      case "Engineer":
+        const employeeEng = await createEngineer(
+          response.name,
+          response.role,
+          response.email
+        );
+        employees.push(employeeEng);
+        addAnotherEmployee();
+        break;
+
+      case "Intern":
+        const employeeInt = await createIntern(
+          response.name,
+          response.role,
+          response.email
+        );
+        employees.push(employeeInt);
+
+        addAnotherEmployee();
+        break;
+      default:
+        break;
+    }
+  });
+}
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
