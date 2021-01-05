@@ -74,6 +74,28 @@ function main() {
     }
   });
 }
+
+async function createEngineer(name, role, email) {
+    const response = await inquirer.prompt([
+      {
+        type: "input",
+        message: "What is your Github username?",
+        name: "github",
+      },
+    ]);
+  
+    return new Engineer(name, role, email, response.github);
+  }
+  
+  async function createIntern(name, id, email) {
+    const response = await inquirer.prompt([
+      {
+        type: "input",
+        message: "Where do you attend University?",
+        name: "university",
+      },
+    ]);
+  
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
