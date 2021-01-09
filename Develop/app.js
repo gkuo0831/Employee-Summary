@@ -33,15 +33,20 @@ const team = () =>
       message: "What is your email?",
       name: "email",
     },
+    {
+      type: "input",
+      message: "Please provide your id.",
+      name: "id",
+    },
   ]);
 
 function main() {
-  question().then(async (response) => {
+  team().then(async (response) => {
     switch (response.role) {
       case "Manager":
         const employeeMgr = await createManager(
           response.name,
-          response.role,
+          response.id,
           response.email
         );
         employees.push(employeeMgr);
@@ -52,7 +57,7 @@ function main() {
       case "Engineer":
         const employeeEng = await createEngineer(
           response.name,
-          response.role,
+          response.id,
           response.email
         );
         employees.push(employeeEng);
@@ -62,7 +67,7 @@ function main() {
       case "Intern":
         const employeeInt = await createIntern(
           response.name,
-          response.role,
+          response.id,
           response.email
         );
         employees.push(employeeInt);
@@ -75,7 +80,7 @@ function main() {
   });
 }
 
-async function createEngineer(name, role, email) {
+async function createEngineer(name, id, email) {
   const response = await inquirer.prompt([
     {
       type: "input",
@@ -84,7 +89,7 @@ async function createEngineer(name, role, email) {
     },
   ]);
 
-  return new Engineer(name, role, email, response.github);
+  return new Engineer(name, id, email, response.github);
 }
 
 async function createIntern(name, role, email) {
@@ -121,3 +126,5 @@ function addAnotherEmployee() {
       }
     });
 }
+
+main();
