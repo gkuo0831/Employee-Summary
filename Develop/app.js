@@ -23,7 +23,7 @@ const team = () =>
       name: "name",
     },
     {
-      type: "input",
+      type: "list",
       message: "What is your role?",
       choices: ["Manager", "Engineer", "Intern"],
       name: "role",
@@ -49,6 +49,7 @@ function main() {
           response.id,
           response.email
         );
+
         employees.push(employeeMgr);
 
         addAnotherEmployee();
@@ -79,7 +80,17 @@ function main() {
     }
   });
 }
+async function createManager(name, id, email) {
+  const response = await inquirer.prompt([
+    {
+      type: "input",
+      message: "What is your office number?",
+      name: "officeNumber",
+    },
+  ]);
 
+  return new Manager(name, id, email, response.officeNumber);
+}
 async function createEngineer(name, id, email) {
   const response = await inquirer.prompt([
     {
@@ -92,7 +103,7 @@ async function createEngineer(name, id, email) {
   return new Engineer(name, id, email, response.github);
 }
 
-async function createIntern(name, role, email) {
+async function createIntern(name, id, email) {
   const response = await inquirer.prompt([
     {
       type: "input",
