@@ -21,6 +21,12 @@ const team = () =>
       type: "input",
       message: "What is your name?",
       name: "name",
+      validate: (answer) => {
+        if (answer !== "") {
+          return true;
+        }
+        return "Please enter a valid name.";
+      },
     },
     {
       type: "list",
@@ -32,6 +38,13 @@ const team = () =>
       type: "input",
       message: "What is your email?",
       name: "email",
+      validate: (answer) => {
+        const email = answer.match(/\S+@\S+\.\S+/);
+        if (email) {
+          return true;
+        }
+        return "Please enter a valid email address.";
+      },
     },
     {
       type: "input",
